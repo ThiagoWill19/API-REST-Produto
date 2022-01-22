@@ -1,6 +1,5 @@
 package com.will.apirestproduto.models;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
@@ -9,10 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "TB_PRODUTO")
-public class Produto implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Produto extends RepresentationModel<Produto> {
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

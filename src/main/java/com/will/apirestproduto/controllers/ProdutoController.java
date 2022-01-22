@@ -1,5 +1,8 @@
 package com.will.apirestproduto.controllers;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +32,10 @@ public class ProdutoController {
 		if(produtosList.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
+			for(Produto produto : produtosList) {
+				long id = produto.getId();
+				produto.add(linkTo(methodOn(ProdutoController.class).getOneProduto(id)).withSelfRel());
+			}
 			return new ResponseEntity<List<Produto>>(produtosList,HttpStatus.OK);
 		}
 	}
@@ -39,6 +46,7 @@ public class ProdutoController {
 		if(!produtoO.isPresent()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}else {
+			produtoO.get().add(linkTo(methodOn(ProdutoController.class).getAllProdutos()).withRel("Lista de produtos"));
 			return new ResponseEntity<Produto>(produtoO.get(),HttpStatus.OK);
 		}
 	}
