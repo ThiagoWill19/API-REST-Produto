@@ -9,6 +9,7 @@
  - Spring Devtools
  - Spring JPA
  - Spring Web
+ - Spring Hateoas
  - MySQL
  
  
